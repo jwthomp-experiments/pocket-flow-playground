@@ -1,6 +1,6 @@
 import ollama
-#from openai import OpenAI
-import os
+
+# from openai import OpenAI
 
 
 def call_llm(messages, use_cache: bool = True):
@@ -16,18 +16,18 @@ def call_llm(messages, use_cache: bool = True):
     """
     try:
         response = ollama.chat(
-            model='qwen3:4b',
+            model="qwen3:4b",
             messages=messages,
-            stream=False, # important to set stream to false to get the response.
-            options = {
-                'use_cache': use_cache,
-            }
-
+            stream=False,  # important to set stream to false to get the response.
+            options={
+                "use_cache": use_cache,
+            },
         )
-        return response['message']['content']
+        return response["message"]["content"]
     except ollama.ResponseError as e:
         print(f"Ollama Error: {e}")
         return None  # Or handle the error as needed.
+
 
 def stream_llm(messages, use_cache: bool = True):
     """
@@ -42,13 +42,12 @@ def stream_llm(messages, use_cache: bool = True):
     """
     try:
         response = ollama.chat(
-            model='qwen3:4b',
+            model="qwen3:4b",
             messages=messages,
-            stream=True, # important to set stream to false to get the response.
-            options = {
-                'use_cache': use_cache,
-            }
-
+            stream=True,  # important to set stream to false to get the response.
+            options={
+                "use_cache": use_cache,
+            },
         )
         return response
     except ollama.ResponseError as e:
