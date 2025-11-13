@@ -8,3 +8,8 @@ dependencies = [
     "ollama>=0.6.0",
     "pocketflow>=0.0.3",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.4",
+]
