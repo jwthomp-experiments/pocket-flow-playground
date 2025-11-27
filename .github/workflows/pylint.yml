@@ -77,4 +77,7 @@ jobs:
         #add-problem-matchers: # optional, default is true
         # Resolution strategy to use when resolving version ranges. 'highest' uses the latest compatible version, 'lowest' uses the oldest compatible version.
         #resolution-strategy: # optional, default is highest
+    - name: lint
+      run: |
+        uv run ruff check .
               
