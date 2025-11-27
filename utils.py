@@ -14,6 +14,8 @@ def call_llm(messages, use_cache: bool = True):
     Returns:
         str: The generated text response from the model.
     """
+    model = "qwen3:4b"
+    model = "hf.co/mradermacher/amoral-gemma3-12B-v2-GGUF:Q6_K"
     try:
         response = ollama.chat(
             model="qwen3:4b",

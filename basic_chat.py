@@ -86,11 +86,13 @@ class AnswerNode(Node):
             r"<think>.*?</think>\n?", "", exec_res, flags=re.DOTALL
         )
 
+        queue_name = self.params["queue_name"]
         # Print the assistant's response
-        print(f"\nAssistant: {cleaned_content}")
+        print(f"\n{queue_name}: {cleaned_content}")
 
         # Add assistant message to history
         shared["messages"].append({"role": "assistant", "content": cleaned_content})
+        shared["message"] = {"role": "assistant", "content": cleaned_content}
 
         # We only end if the user explicitly typed 'exit'
         # Even if last_question is set, we continue in interactive mode
@@ -104,15 +106,17 @@ class EndNode(Node):
 
 
 # Create the flow with self-loop
-input_node = InputNode()
+#input_node = InputNode()
 answer_node = AnswerNode()
 
-input_node - "continue" >> answer_node  # Pass input to llm node
-answer_node - "continue" >> input_node  # Call the LLM
-input_node - "end" >> EndNode()  # End the flow if user types 'exit'
+#input_node - "continue" >> answer_node  # Pass input to llm node
+answer_node - "continue" >> EndNode()  # Call the LLM
+#input_node - "end" >> EndNode()  # End the flow if user types 'exit'
 answer_node - "end" >> EndNode()  # End the flow if LLM response is None
 
-flow = Flow(start=input_node)
+flow = Flow(start=answer_node)
+
+flow.set_params({"queue_name": "Agent_1"})
 
 # Start the chat
 if __name__ == "__main__":
