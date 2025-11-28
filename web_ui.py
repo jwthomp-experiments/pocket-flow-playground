@@ -1,4 +1,3 @@
-from openai import OpenAI
 import streamlit as st
 
 from basic_chat import flow
