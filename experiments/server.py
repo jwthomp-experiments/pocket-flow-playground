@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Request
 #from openai import OpenAI
-import os
 
 app = FastAPI()
 

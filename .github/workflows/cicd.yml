@@ -1,0 +1,85 @@
+name: Python CI/CD with uv
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      #- name: Set up Python
+      #  uses: actions/setup-python@v5
+      #  with:
+      #    python-version: '3.10' # Specify your desired Python version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: 'latest' # Or a specific version like '0.1.10'
+          #python-version: '3.10'
+          enable-cache: true # Caches the uv executable and its internal cache
+      - name: Install dependencies
+        run: uv sync --locked # Assuming you have a uv.lock file
+        # Alternative for requirements.txt: uv pip install -r requirements.txt
+      - name: Build project (if applicable)
+        run: |
+          # Example build commands, adjust as needed
+          echo "Building project..."
+          # python setup.py sdist bdist_wheel # If building a package
+
+  test:
+    needs: build # Ensures build job completes successfully before testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      #- name: Set up Python
+      #  uses: actions/setup-python@v5
+      #  with:
+      #    python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: 'latest'
+          #python-version: '3.10'
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Run tests
+        run: |
+          # Example test commands, adjust as needed
+          uv run pytest # Assuming pytest is in your dev dependencies
+
+  deploy:
+    needs: test # Ensures tests pass before deployment
+    if: github.ref == 'refs/heads/main' # Only deploy from main branch
+    runs-on: ubuntu-latest
+    environment: production # Define a GitHub environment for deployment
+    steps:
+      - uses: actions/checkout@v4
+      #- name: Set up Python
+      #  uses: actions/setup-python@v5
+      #  with:
+      #    python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: 'latest'
+          #python-version: '3.10'
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      #- name: Deploy application
+      #  run: |
+      #    # Example deployment commands, adjust as needed
+      #    echo "Deploying to production..."
+      #    # For example, pushing to a remote server, deploying to a cloud platform, etc.
+      #    # scp -r . user@your-server:/var/www/html
