@@ -526,37 +526,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pf"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "fastapi" },
-    { name = "ollama" },
-    { name = "openai" },
-    { name = "pocketflow" },
-    { name = "streamlit" },
-    { name = "uvicorn" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "fastapi", specifier = ">=0.121.3" },
-    { name = "ollama", specifier = ">=0.6.0" },
-    { name = "openai", specifier = ">=2.8.1" },
-    { name = "pocketflow", specifier = ">=0.0.3" },
-    { name = "streamlit", specifier = ">=1.51.0" },
-    { name = "uvicorn", specifier = ">=0.38.0" },
-]
-
-[package.metadata.requires-dev]
-dev = [{ name = "ruff", specifier = ">=0.14.4" }]
-
-[[package]]
 name = "pillow"
 version = "12.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -613,6 +582,37 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/35/73/e29aa0c9c666cf787628d3f0dcf379f4791fba79f4936d02f8b37165bdf8/pillow-12.0.0-cp314-cp314t-win_amd64.whl", hash = "sha256:905b0365b210c73afb0ebe9101a32572152dfd1c144c7e28968a331b9217b94a", size = 7148282, upload-time = "2025-10-15T18:23:55.316Z" },
     { url = "https://files.pythonhosted.org/packages/c1/70/6b41bdcddf541b437bbb9f47f94d2db5d9ddef6c37ccab8c9107743748a4/pillow-12.0.0-cp314-cp314t-win_arm64.whl", hash = "sha256:99353a06902c2e43b43e8ff74ee65a7d90307d82370604746738a1e0661ccca7", size = 2525630, upload-time = "2025-10-15T18:23:57.149Z" },
 ]
+
+[[package]]
+name = "pocket-flow-playground"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "fastapi" },
+    { name = "ollama" },
+    { name = "openai" },
+    { name = "pocketflow" },
+    { name = "streamlit" },
+    { name = "uvicorn" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fastapi", specifier = ">=0.121.3" },
+    { name = "ollama", specifier = ">=0.6.0" },
+    { name = "openai", specifier = ">=2.8.1" },
+    { name = "pocketflow", specifier = ">=0.0.3" },
+    { name = "streamlit", specifier = ">=1.51.0" },
+    { name = "uvicorn", specifier = ">=0.38.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ruff", specifier = ">=0.14.4" }]
 
 [[package]]
 name = "pocketflow"
