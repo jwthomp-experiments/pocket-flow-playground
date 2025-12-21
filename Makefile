@@ -9,6 +9,10 @@ web-ui: OPENAI_BASE_URL=http://localhost:8000/v1
 web-ui:
 	uv run streamlit run web_ui.py
 
+@PHONY: test
+test:
+	uv run pytest
+
 @PHONY: lint
 lint: ruff-check ty-check
 
