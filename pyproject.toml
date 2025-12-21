@@ -1,5 +1,5 @@
 [project]
-name = "pf"
+name = "pocket-flow-playground"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -15,5 +15,15 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "pytest>=9.0.2",
     "ruff>=0.14.4",
+    "ty>=0.0.1a29",
 ]
+
+[build-system]
+requires = ["uv_build>=0.9.14,<0.10.0"]
+build-backend = "uv_build"
+
+[project.scripts]
+pocket-flow-playground = "pocket_flow_playground.main:main_cli"
+pfp = "pocket_flow_playground.main:main_cli"

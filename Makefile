@@ -1,3 +1,6 @@
+# Define source directories
+SOURCE_DIRS = src tests
+
 server:
 	uv run uvicorn server:app --reload
 
@@ -6,14 +9,31 @@ web-ui: OPENAI_BASE_URL=http://localhost:8000/v1
 web-ui:
 	uv run streamlit run web_ui.py
 
-basic_chat:
-	uv run -m basic_chat
+@PHONY: test
+test:
+	uv run pytest
 
-multi_agent_chat:
-	uv run -m multi_agent_chat
+@PHONY: lint
+lint: ruff-check ty-check
 
-lint:
-	uv run ruff check .
+@PHONY: format
+format: ruff-fix $(SOURCE_DIRS)
 
-format:
-	uv run ruff check . --fix
+@PHONY: ruff-check
+ruff-check:
+	uv run ruff check $(SOURCE_DIRS)
+
+@PHONY: ruff-fix
+ruff-fix:
+	uv run ruff check $(SOURCE_DIRS) --fix
+
+@PHONY: ty-check
+ty-check:
+	uv run ty check $(SOURCE_DIRS)
+
+@PHONY: clean
+clean:
+	uv run ruff clean
+	find . \( -name "__pycache__" -o -name "*.pyc" -o -name "*.pyo" \) -exec rm -rf {} +
+	rm -rf .venv
+	rm -rf dist
