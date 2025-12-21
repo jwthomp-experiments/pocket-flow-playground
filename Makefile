@@ -33,5 +33,7 @@ ty-check:
 
 @PHONY: clean
 clean:
+	uv run ruff clean
 	find . \( -name "__pycache__" -o -name "*.pyc" -o -name "*.pyo" \) -exec rm -rf {} +
 	rm -rf .venv
+	rm -rf dist
