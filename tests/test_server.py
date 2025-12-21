@@ -3,7 +3,8 @@ from fastapi.testclient import TestClient
 from pocket_flow_playground import server
 
 # This file has been AI generated and not tested yet. 
-# Please review and test them before using.
+# Please review and review this notice after confirming code
+# is correct.
 
 
 def test_run_my_agent_with_messages():
