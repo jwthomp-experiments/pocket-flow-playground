@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 
-from pocket_flow_playground import server
+from pocket_flow_playground import server_openai as server
 
-# This file has been AI generated and not tested yet. 
+# This file has been AI generated and not tested yet.
 # Please review and review this notice after confirming code
 # is correct.
 
@@ -45,7 +45,7 @@ def test_chat_completions_endpoint_echo():
 
     choice = data["choices"][0]
     assert choice["index"] == 0
-    assert choice["message"] == server.run_my_agent(payload["messages"]) 
+    assert choice["message"] == server.run_my_agent(payload["messages"])
 
 
 def test_chat_completions_default_model_and_empty_messages():
@@ -59,4 +59,6 @@ def test_chat_completions_default_model_and_empty_messages():
     assert data["model"] == "your-agent-model"
 
     # message reflects no input
-    assert data["choices"][0]["message"]["content"] == "Agent says: No message provided."
+    assert (
+        data["choices"][0]["message"]["content"] == "Agent says: No message provided."
+    )
