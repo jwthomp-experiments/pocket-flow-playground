@@ -10,6 +10,8 @@ dependencies = [
     "openai>=2.8.1",
     "pocketflow>=0.0.3",
     "streamlit>=1.51.0",
+    "toml>=0.10.2",
+    "typer>=0.20.1",
     "uvicorn>=0.38.0",
 ]
 
@@ -26,4 +28,4 @@ build-backend = "uv_build"
 
 [project.scripts]
 pocket-flow-playground = "pocket_flow_playground.main:main_cli"
-pfp = "pocket_flow_playground.main:main_cli"
+pfp = "pocket_flow_playground.main:main"

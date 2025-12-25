@@ -1,6 +1,6 @@
 import streamlit as st
 
-from basic_chat import flow
+from flow import flow
 
 # Initialize our app's memory
 if 'state' not in st.session_state:
