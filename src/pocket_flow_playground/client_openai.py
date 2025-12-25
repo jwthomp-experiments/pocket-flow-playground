@@ -1,7 +1,5 @@
 import ollama
 
-# from openai import OpenAI
-
 
 def call_llm(messages, use_cache: bool = True):
     """
