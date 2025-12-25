@@ -2,6 +2,7 @@ import re
 from pocketflow import Node
 from pocket_flow_playground.client_openai import call_llm
 
+
 class InputNode(Node):
     def prep(self, shared):
         # Initialize messages if this is the first run
@@ -99,6 +100,9 @@ class AnswerNode(Node):
 
 
 class EndNode(Node):
-    """Node that handles flow termination."""
+    """Node that handles flow termination.
+
+    This node is used to mark the end of a flow execution.
+    """
 
     pass
