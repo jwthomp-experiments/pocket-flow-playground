@@ -15,7 +15,7 @@ class InputNode(Node):
 
         return None
 
-    def exec(self, _):
+    def exec(self, prep_res):
         # Get user input
         user_input = input("\nYou: ")
 
@@ -70,13 +70,13 @@ class AnswerNode(Node):
 
         return context
 
-    def exec(self, messages):
+    def exec(self, prep_res):
         """Generate a response using the LLM"""
-        if messages is None:
+        if prep_res is None:
             return None
 
         # Call LLM with the context
-        response = call_llm(messages)
+        response = call_llm(prep_res)
         return response
 
     def post(self, shared, prep_res, exec_res):
