@@ -1,6 +1,9 @@
 import re
-from pocketflow import Node
-from pocket_flow_playground.client_openai import call_llm
+
+from pocketflow import Node, Flow
+
+from .logging_config import logger
+from .utils import call_llm
 
 
 class InputNode(Node):
@@ -8,7 +11,7 @@ class InputNode(Node):
         # Initialize messages if this is the first run
         if "messages" not in shared:
             shared["messages"] = []
-            print("Welcome to the chat! Type 'exit' to end the conversation.")
+            logger.info("Welcome to the chat! Type 'exit' to end the conversation.")
 
         return None
 
@@ -24,7 +27,7 @@ class InputNode(Node):
 
     def post(self, shared, prep_res, exec_res):
         if exec_res is None:
-            print("\nGoodbye!")
+            logger.info("Goodbye!")
             return "end"  # End the conversation
 
         # Add user message to history
@@ -87,8 +90,8 @@ class AnswerNode(Node):
         )
 
         queue_name = self.params["queue_name"]
-        # Print the assistant's response
-        print(f"\n{queue_name}: {cleaned_content}")
+        # Log the assistant's response
+        logger.info(f"{queue_name}: {cleaned_content}")
 
         # Add assistant message to history
         shared["messages"].append({"role": "assistant", "content": cleaned_content})

@@ -42,9 +42,9 @@ if prompt := st.chat_input():
     flow.run(st.session_state)
 
     if st.session_state.message is not None:
-        print(f"Response: {st.session_state.message}")
+        logger.info(f"Response: {st.session_state.message}")
         msg = st.session_state.message["content"]
         st.session_state.messages.append({"role": "assistant", "content": msg})
         st.chat_message("assistant").write(msg)
     else:
-        print(f"No response generated.: {st.session_state.message}")
+        logger.warning(f"No response generated: {st.session_state.message}")
