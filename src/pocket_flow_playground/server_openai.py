@@ -28,7 +28,8 @@ async def chat_completions(request: Request):
 
     # Extract relevant data for your agent
     messages = data.get("messages", [])
-    model = data.get("model", "your-agent-model") # You can define your own model name
+    model = data.get("model", "your-agent-model")  # You can define your own model name
+
     # Log message count
     if messages:
         logger.debug(f"Processing {len(messages)} messages")
