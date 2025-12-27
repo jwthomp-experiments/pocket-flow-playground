@@ -1,6 +1,6 @@
 import re
-from pocketflow import Node, Flow
-from utils import call_llm
+from pocketflow import Node
+from pocket_flow_playground.client_openai import call_llm
 
 
 class InputNode(Node):
@@ -100,25 +100,9 @@ class AnswerNode(Node):
 
 
 class EndNode(Node):
-    """Node that handles flow termination."""
+    """Node that handles flow termination.
+
+    This node is used to mark the end of a flow execution.
+    """
 
     pass
-
-
-# Create the flow with self-loop
-#input_node = InputNode()
-answer_node = AnswerNode()
-
-#input_node - "continue" >> answer_node  # Pass input to llm node
-answer_node - "continue" >> EndNode()  # Call the LLM
-#input_node - "end" >> EndNode()  # End the flow if user types 'exit'
-answer_node - "end" >> EndNode()  # End the flow if LLM response is None
-
-flow = Flow(start=answer_node)
-
-flow.set_params({"queue_name": "Agent_1"})
-
-# Start the chat
-if __name__ == "__main__":
-    shared = {}
-    flow.run(shared)

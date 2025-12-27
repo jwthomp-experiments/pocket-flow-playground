@@ -1,2 +1,5 @@
-def main_cli():
-    pass
+from pocket_flow_playground.cli import app
+
+
+def main():
+    app()

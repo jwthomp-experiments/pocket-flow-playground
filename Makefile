@@ -2,12 +2,18 @@
 SOURCE_DIRS = src tests
 
 server:
-	uv run uvicorn server:app --reload
+	uv run uvicorn src.pocket_flow_playground.server_openai:app --reload
 
 #web-ui: OPENAI_BASE_URL=http://localhost:11434/v1
 web-ui: OPENAI_BASE_URL=http://localhost:8000/v1
 web-ui:
-	uv run streamlit run web_ui.py
+	uv run streamlit run src/pocket_flow_playground/web_ui.py
+
+
+@PHONY: cli
+cli:
+	uv run python -m src.pocket_flow_playground.main
+
 
 @PHONY: test
 test:
