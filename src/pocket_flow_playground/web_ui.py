@@ -1,7 +1,7 @@
 import streamlit as st
 
-from .basic_chat import flow
-from .logging_config import logger
+from pocket_flow_playground.flow import flow
+from pocket_flow_playground.logging_config import logger
 
 # Initialize our app's memory
 if "state" not in st.session_state:

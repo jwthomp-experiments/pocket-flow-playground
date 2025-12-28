@@ -1,6 +1,6 @@
 import ollama
 
-from .logging_config import logger
+from pocket_flow_playground.logging_config import logger
 
 # from openai import OpenAI
 

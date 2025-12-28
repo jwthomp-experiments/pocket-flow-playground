@@ -2,8 +2,8 @@ import re
 
 from pocketflow import Node, Flow
 
-from .logging_config import logger
-from .utils import call_llm
+from pocket_flow_playground.logging_config import logger
+from pocket_flow_playground.client_openai import call_llm
 
 
 class InputNode(Node):
