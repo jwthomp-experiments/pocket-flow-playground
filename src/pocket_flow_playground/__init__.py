@@ -1,4 +1,7 @@
-import toml as Toml
+"""Pocket Flow Playground package."""
 
-__app_name__ = "pyproject.toml"
-__version__ = Toml.load("pyproject.toml")["project"]["version"]
+from .basic_chat import flow
+from .logging_config import logger
+from .server import app
+from .utils import call_llm, stream_llm
+from .web_ui import *
