@@ -3,8 +3,6 @@ from streamlit.web import cli as stcli
 import sys
 import typer
 
-from . import __app_name__, __version__
-
 app = typer.Typer()
 
 
