@@ -3,6 +3,8 @@ from streamlit.web import cli as stcli
 import sys
 import typer
 
+from . import __app_name__, __version__
+
 app = typer.Typer()
 
 
@@ -44,6 +46,12 @@ def main(
         help="Show the application's version and exit.",
         callback=_version_callback,
         is_eager=True,
+    ),
+    openai_base_url: Optional[str] = typer.Option(
+        None,
+        "--openai-base-url",
+        help="Base URL for the OpenAI-compatible API server.",
+        envvar="OPENAI_BASE_URL",
     ),
 ) -> None:
     return
