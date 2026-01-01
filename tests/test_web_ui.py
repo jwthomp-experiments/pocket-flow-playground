@@ -4,6 +4,17 @@ Tests for web_ui.py - Streamlit-based chatbot UI
 
 import pytest
 from unittest.mock import patch
+from typing import TypedDict, List
+
+
+class Message(TypedDict):
+    role: str
+    content: str
+
+
+class SharedState(TypedDict):
+    messages: List[Message]
+    message: Message
 
 
 def test_web_ui_imports_successfully():
@@ -64,7 +75,7 @@ def test_message_format():
 def test_shared_state_structure():
     """Test that shared state has the expected structure for flow execution"""
     # This represents the shared state passed to flow.run()
-    shared = {
+    shared: SharedState = {
         "messages": [
             {"role": "assistant", "content": "How can I help you?"},
             {"role": "user", "content": "Hello"},
