@@ -1,6 +1,5 @@
 """Test audio nodes functionality"""
 import pytest
-from unittest.mock import Mock, patch, MagicMock
 import numpy as np
 from pocket_flow_playground.nodes import AudioInputNode, WakeWordDetectionNode
 
@@ -59,7 +58,7 @@ def test_wake_word_detection_node_prep():
     assert result is None
     assert "wake_word" in shared
     assert shared["wake_word"]["wake_word"] == "hey ai"
-    assert shared["wake_word"]["detected"] == False
+    assert not shared["wake_word"]["detected"]
 
 
 def test_wake_word_detection_node_post_continue():
