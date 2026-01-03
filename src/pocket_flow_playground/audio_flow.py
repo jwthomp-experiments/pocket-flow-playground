@@ -10,7 +10,6 @@ It includes:
 All components are implemented as PocketFlow nodes and connected in a flow.
 """
 
-from typing import Any
 from pocketflow import Flow
 from .nodes import AudioInputNode, WakeWordDetectionNode, EndNode
 from .logging_config import logger
