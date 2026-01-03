@@ -10,6 +10,7 @@ It includes:
 All components are implemented as PocketFlow nodes and connected in a flow.
 """
 
+from typing import Any
 from pocketflow import Flow
 from .nodes import AudioInputNode, WakeWordDetectionNode, EndNode
 from .logging_config import logger
@@ -47,7 +48,7 @@ class AudioInputFlow(Flow):
         self.audio_input_node - "error" >> self.wake_word_node  # Retry if error
         
         # Set start node
-        self.start = self.wake_word_node
+        self.start_node = self.wake_word_node
         
         logger.info("Audio input flow created")
     

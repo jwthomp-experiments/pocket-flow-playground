@@ -27,7 +27,7 @@ class AudioInputNode(Node):
         self.sample_rate = sample_rate
         self.channels = channels
         self.dtype = dtype
-        self.stream = None
+        self.stream = None  # type: sounddevice.InputStream | None
         self.audio_queue = queue.Queue()
         self.recording = False
         self.recording_thread = None
@@ -103,7 +103,7 @@ class AudioInputNode(Node):
         shared["audio_data"]["timestamp"] = time.time()
 
         # Start audio stream
-        self.stream.start()
+        self.stream.start()  # type: ignore[attr-defined]
 
         # Record for a fixed duration (e.g., 5 seconds)
         record_duration = 5.0  # seconds
@@ -125,7 +125,7 @@ class AudioInputNode(Node):
         )
 
         # Stop audio stream
-        self.stream.stop()
+        self.stream.stop()  # type: ignore[attr-defined]
 
         # Combine all chunks into single array
         if shared["audio_data"]["chunks"]:
@@ -182,7 +182,7 @@ class WakeWordDetectionNode(Node):
         self.sample_rate = sample_rate
         self.channels = channels
         self.dtype = dtype
-        self.stream = None
+        self.stream = None  # type: sounddevice.InputStream | None
         self.audio_queue = queue.Queue()
         self.listening = False
         self.blocksize = 1024
@@ -290,7 +290,7 @@ class WakeWordDetectionNode(Node):
         logger.info(f"Listening for wake word: '{self.wake_word}'...")
 
         # Start audio stream
-        self.stream.start()
+        self.stream.start()  # type: ignore[attr-defined]
 
         # Listen for wake word
         listen_duration = 30.0  # seconds (30 seconds timeout)
@@ -338,7 +338,7 @@ class WakeWordDetectionNode(Node):
         self.listening = False
 
         # Stop audio stream
-        self.stream.stop()
+        self.stream.stop()  # type: ignore[attr-defined]
 
         return self.wake_word_detected
 
