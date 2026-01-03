@@ -6,9 +6,11 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.121.3",
+    "numpy>=2.3.5",
     "ollama>=0.6.0",
     "openai>=2.8.1",
     "pocketflow>=0.0.3",
+    "sounddevice>=0.5.3",
     "streamlit>=1.51.0",
     "toml>=0.10.2",
     "typer>=0.20.1",
