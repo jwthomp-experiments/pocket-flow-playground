@@ -1,5 +1,8 @@
 import re
-from pocketflow import Node
+
+from pocketflow import Node, Flow
+
+from pocket_flow_playground.logging_config import logger
 from pocket_flow_playground.client_openai import call_llm
 
 
@@ -8,11 +11,11 @@ class InputNode(Node):
         # Initialize messages if this is the first run
         if "messages" not in shared:
             shared["messages"] = []
-            print("Welcome to the chat! Type 'exit' to end the conversation.")
+            logger.info("Welcome to the chat! Type 'exit' to end the conversation.")
 
         return None
 
-    def exec(self, _):
+    def exec(self, prep_res):
         # Get user input
         user_input = input("\nYou: ")
 
@@ -24,7 +27,7 @@ class InputNode(Node):
 
     def post(self, shared, prep_res, exec_res):
         if exec_res is None:
-            print("\nGoodbye!")
+            logger.info("Goodbye!")
             return "end"  # End the conversation
 
         # Add user message to history
@@ -67,13 +70,13 @@ class AnswerNode(Node):
 
         return context
 
-    def exec(self, messages):
+    def exec(self, prep_res):
         """Generate a response using the LLM"""
-        if messages is None:
+        if prep_res is None:
             return None
 
         # Call LLM with the context
-        response = call_llm(messages)
+        response = call_llm(prep_res)
         return response
 
     def post(self, shared, prep_res, exec_res):
@@ -87,8 +90,8 @@ class AnswerNode(Node):
         )
 
         queue_name = self.params["queue_name"]
-        # Print the assistant's response
-        print(f"\n{queue_name}: {cleaned_content}")
+        # Log the assistant's response
+        logger.info(f"{queue_name}: {cleaned_content}")
 
         # Add assistant message to history
         shared["messages"].append({"role": "assistant", "content": cleaned_content})
@@ -106,3 +109,22 @@ class EndNode(Node):
     """
 
     pass
+
+
+# Create the flow with self-loop
+# input_node = InputNode()
+answer_node = AnswerNode()
+
+# input_node - "continue" >> answer_node  # Pass input to llm node
+answer_node - "continue" >> EndNode()  # Call the LLM
+# input_node - "end" >> EndNode()  # End the flow if user types 'exit'
+answer_node - "end" >> EndNode()  # End the flow if LLM response is None
+
+flow = Flow(start=answer_node)
+
+flow.set_params({"queue_name": "Agent_1"})
+
+# Start the chat
+if __name__ == "__main__":
+    shared = {}
+    flow.run(shared)

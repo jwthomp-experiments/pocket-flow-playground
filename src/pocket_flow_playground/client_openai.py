@@ -1,5 +1,9 @@
 import ollama
 
+from pocket_flow_playground.logging_config import logger
+
+# from openai import OpenAI
+
 
 def call_llm(messages, use_cache: bool = True):
     """
@@ -25,7 +29,7 @@ def call_llm(messages, use_cache: bool = True):
         )
         return response["message"]["content"]
     except ollama.ResponseError as e:
-        print(f"Ollama Error: {e}")
+        logger.error(f"Ollama Error: {e}")
         return None  # Or handle the error as needed.
 
 
@@ -51,5 +55,5 @@ def stream_llm(messages, use_cache: bool = True):
         )
         return response
     except ollama.ResponseError as e:
-        print(f"Ollama Error: {e}")
+        logger.error(f"Ollama Error: {e}")
         return None  # Or handle the error as needed.

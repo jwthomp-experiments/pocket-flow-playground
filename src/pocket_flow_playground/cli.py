@@ -47,5 +47,11 @@ def main(
         callback=_version_callback,
         is_eager=True,
     ),
+    openai_base_url: Optional[str] = typer.Option(
+        None,
+        "--openai-base-url",
+        help="Base URL for the OpenAI-compatible API server.",
+        envvar="OPENAI_BASE_URL",
+    ),
 ) -> None:
     return

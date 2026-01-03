@@ -1,5 +1,9 @@
 from fastapi import FastAPI, Request
 
+from pocket_flow_playground.logging_config import logger
+
+# from openai import OpenAI
+
 app = FastAPI()
 
 
@@ -17,12 +21,24 @@ def run_my_agent(messages):
 async def chat_completions(request: Request):
     data = await request.json()
 
+    # Log the incoming request
+    logger.info(
+        f"Received chat completions request with model: {data.get('model', 'default')}"
+    )
+
     # Extract relevant data for your agent
     messages = data.get("messages", [])
     model = data.get("model", "your-agent-model")  # You can define your own model name
 
+    # Log message count
+    if messages:
+        logger.debug(f"Processing {len(messages)} messages")
+
     # Run your agent
     agent_response = run_my_agent(messages)
+
+    # Log successful response
+    logger.info(f"Generated response: {agent_response['content'][:100]}...")
 
     # Format the response to be OpenAI-compatible
     response_payload = {

@@ -1,6 +1,7 @@
 import streamlit as st
 
 from pocket_flow_playground.flow import flow
+from pocket_flow_playground.logging_config import logger
 
 # Initialize our app's memory
 if "state" not in st.session_state:
@@ -39,12 +40,18 @@ if prompt := st.chat_input():
     # st.session_state.messages.append({"role": "assistant", "content": msg})
     # st.chat_message("assistant").write(msg)
 
-    flow.run(st.session_state)
+    # Convert session state to dict for flow.run()
+    shared = dict(st.session_state)
+    flow.run(shared)
+
+    # Update session state with results
+    st.session_state.message = shared.get("message")
+    st.session_state.messages = shared.get("messages", [])
 
     if st.session_state.message is not None:
-        print(f"Response: {st.session_state.message}")
+        logger.info(f"Response: {st.session_state.message}")
         msg = st.session_state.message["content"]
         st.session_state.messages.append({"role": "assistant", "content": msg})
         st.chat_message("assistant").write(msg)
     else:
-        print(f"No response generated.: {st.session_state.message}")
+        logger.warning(f"No response generated: {st.session_state.message}")
